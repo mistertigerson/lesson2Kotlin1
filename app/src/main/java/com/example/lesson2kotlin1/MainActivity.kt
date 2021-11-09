@@ -1,11 +1,10 @@
 package com.example.lesson2kotlin1
 
-import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.lesson2kotlin1.databinding.ActivityMainBinding
+import com.example.lesson2kotlin1.extension.loading
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -24,10 +23,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun randomClick() {
-
         viewBinding.randomBtn.setOnClickListener() {
             val randomValues = Random.nextInt(0, 4)
-            Log.e(TAG, "randomClick:fdsafdsagds " + randomValues)
             Glide
                 .with(this)
                 .load(images[randomValues])
@@ -36,17 +33,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun submitClick() {
-
         viewBinding.submitBtn.setOnClickListener() {
-            images[0] = viewBinding.inputEt.text.toString()
-            Log.e(TAG, "onClick: " + viewBinding.inputEt.text.toString())
-            Glide
-                .with(this)
-                .load(images[0])
-                .into(viewBinding.urlIv)
+            val images : String = viewBinding.inputEt.text.toString()
+            viewBinding.urlIv.loading(images)
         }
     }
-    
+
     private fun createList() {
         images[0] = "https://i.pinimg.com/736x/70/5b/bb/705bbb820c7332b04d619f7536645753.jpg"
         images[1] =
